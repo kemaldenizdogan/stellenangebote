@@ -1,0 +1,83 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Aktuelle Stellenangebote{% endblock %}
+
+{% block stylesheets %}
+{{ parent() }}
+{{ encore_entry_link_tags('jobOfferApp') }}
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+{{ encore_entry_script_tags('jobOfferApp') }}
+{% endblock %}
+
+{% block header %}
+<a href="/" class="d-flex align-items-center text-dark text-decoration-none">
+    <span class="fs-4">Aktuelle Stellenangebote</span>
+</a>
+{% endblock %}
+
+{% block body %}
+<form class="row">
+    <input type="hidden" name="orders['job_offer']" value="{{ order_params.job_offer.direction }}">
+    <input type="hidden" name="orders['category']" value="{{ order_params.category.direction }}">
+    <input type="hidden" name="orders['company']" value="{{ order_params.company.direction }}">
+    <div class="col-12 col-lg-4 mb-4">
+        <input type="text" name="filters[job_offer]" value="{{ filter_params.job_offer }}" class="form-control"
+            placeholder="Stellenbezeichnung" aria-label="Stellenbezeichnung">
+    </div>
+    <div class="col-12 col-lg-4 mb-4">
+        <select name="filters[category_id]" class="form-select" aria-label="Tätigkeitsbereich"
+            onchange="this.form.submit()">
+            <option value="">Tätigkeitsbereich</option>
+            {% for category in categories %}
+            <option value="{{ category.id }}" {{ filter_params.category_id==category.id ? 'selected' : null }}>{{
+                category.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="col-12 col-lg-4 mb-4">
+        <select name="filters[company_id]" class="form-select" aria-label="Firma" onchange="this.form.submit()">
+            <option value="">Firma</option>
+            {% for company in companies %}
+            <option value="{{ company.id }}" {{ filter_params.company_id==company.id ? 'selected' : null }}>{{
+                company.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+</form>
+
+<div class="table-responsive">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">
+                    <a href="{{ order_params.job_offer.link }}">
+                        <span class="order-icon order-{{ order_params.job_offer.direction }}">Stellenbezeichnung</span>
+                    </a>
+                </th>
+                <th scope="col">
+                    <a href="{{ order_params.category.link }}">
+                        <span class="order-icon order-{{ order_params.category.direction }}">Tätigkeitsbereich</span>
+                    </a>
+                </th>
+                <th scope="col">
+                    <a href="{{ order_params.company.link }}">
+                        <span class="order-icon order-{{ order_params.company.direction }}">Firma</span>
+                    </a>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for jobOffer in jobOffers %}
+            <tr>
+                <td class="job-name"><span>{{ jobOffer.name }}</span></td>
+                <td>{{ jobOffer.category.name }}</td>
+                <td>{{ jobOffer.company.name }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

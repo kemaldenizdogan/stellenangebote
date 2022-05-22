@@ -1,0 +1,66 @@
+@import '~bootstrap-icons/font/bootstrap-icons';
+
+.table> :not(:first-child) {
+    border-top: 1px solid #dee2e6;
+}
+
+th {
+    font-weight: 400;
+}
+
+.job-name {
+    position: relative;
+}
+
+.job-name > span {
+    color: #324db0;
+    margin-left: 25px;
+}
+
+.job-name::before {
+    color: #000;
+    content: "\f138";
+    font-family: "bootstrap-icons";
+    position: absolute;
+    top: 8px;
+}
+
+.order-icon {
+    position: relative;
+}
+
+.order-icon::after {
+    font-family: "bootstrap-icons";
+    position: absolute;
+    right: -20px;
+    top: 1px;
+    font-size: 12px;
+}
+
+.order-default::after {
+    color: #ddd;
+    content: "\f229";
+}
+
+.order-asc,
+.order-desc {
+    color: #000;
+    font-weight: 700;
+}
+
+.order-asc::after {
+    content: "\f229";
+}
+
+.order-desc::after {
+    content: "\f235";
+}
+
+th a {
+    color: inherit;
+    text-decoration: none;
+}
+
+th a:hover {
+    color: inherit;
+}

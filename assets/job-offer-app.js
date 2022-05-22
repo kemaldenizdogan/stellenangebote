@@ -1,0 +1,1 @@
+import './styles/job-offer-app.scss';
